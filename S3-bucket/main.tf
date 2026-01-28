@@ -11,12 +11,15 @@ terraform {
 provider "aws" {
   region = "us-east-2"
 }
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+}
 
 resource "aws_s3_bucket" "my_first_bucket" {
   bucket = "bucket-with-tf-2308"
 
   tags = {
     Name        = "My bucket1.0"
-    Environment = "Dev"
+    VPC_ID      = aws_vpc.main.id
   }
 }
