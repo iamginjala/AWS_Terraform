@@ -13,6 +13,11 @@ terraform {
     use_lockfile = true
   }
 }
+variable "my_tag" {
+  default = "dev"
+  type = string
+  
+}
 
 # Configure the AWS Provider
 provider "aws" {
@@ -20,13 +25,26 @@ provider "aws" {
 }
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
+  tags = {
+    Environment = var.my_tag
+  }
 }
 
 resource "aws_s3_bucket" "my_first_bucket" {
   bucket = "bucket-with-tf-2308"
 
   tags = {
-    Name        = "My bucket1.0"
-    VPC_ID      = aws_vpc.main.id
+    Environment  =  var.my_tag
   }
+}
+
+output "sample_output" {
+   description = "vpc id"
+   value =   aws_vpc.main.id
+
+}
+output "s3_bucket_arn" {
+  description = "s3 bucket arn"
+  value = aws_s3_bucket.my_first_bucket.arn
+  
 }
