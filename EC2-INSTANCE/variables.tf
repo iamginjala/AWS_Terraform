@@ -28,6 +28,13 @@ variable "cidr_blocks" {
   default = [ "10.0.0.0/16","10.0.1.0/24","10.0.2.0/24" ]
   
 }
-variable "tags" {
+variable "bucket_list" {
+  type = list(string)
+  default = [ "hg_bucket_23080900","hg_bucket_23080901" ]
+  
+}
+variable "bucket_set" {
+  type = set(string)
+  default = [ "hg_bucket_23080905","hg_bucket_23080906" ]
   
 }
