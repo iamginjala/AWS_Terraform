@@ -1,6 +1,12 @@
 
 resource "aws_s3_bucket" "test_bucket" {
-  bucket = "${var.environment}-test-bucket-2308"
+  count = length(var.bucket_list)
+  bucket = var.bucket_list[count.index]
+}
+
+resource "aws_s3_bucket" "test_bucket2" {
+  for_each = var.bucket_set
+  bucket = each.valueff
 }
 
 data "aws_ami" "ubuntu" {
