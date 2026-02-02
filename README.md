@@ -28,6 +28,7 @@ This repository contains Terraform configurations for learning and practicing AW
 - [ ] Remote state with S3 backend
 - [ ] Workspaces
 - [ ] Terraform Cloud
+- [ ] LifeCycle Rulea
 
 ## Project Structure
 
