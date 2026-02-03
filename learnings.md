@@ -130,6 +130,26 @@ common use cases for lifecycle rules:
 5. Enforcing configuration rules: Using precondition and postcondition for validating resource states.
 
 
+1. Conditional Expressions
+What it does:
+Evaluates a condition and returns one of two values based on whether the condition is true or false.
+
+Syntax:
+condition ? true_value : false_value
+
+use cases:
+1. Dynamic resource configuration: Adjusting resource parameters based on environment or other variables.
+2. Conditional outputs: Displaying different output values based on certain conditions.
+Example:
+variable "environment" {
+  description = "The deployment environment"
+  type        = string
+  default     = "dev"
+} 
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = var.environment == "prod" ? "t2.large" : "t2.micro"
+}
 
 ## Commands Used 
 terraform init                             -  Initialize, download providers
