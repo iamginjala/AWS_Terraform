@@ -161,3 +161,4 @@ terraform state show <resource_name>       - Show detailed state information
 terraform state rm <resource_name>         - Remove resource from state (without destroying)
 terraform state mv <source> <destination>  - Move resource to different state address
 terraform state pull                       - Pull current state and display
+terraform state push                       - Push local state to remote backend
