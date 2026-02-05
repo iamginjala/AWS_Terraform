@@ -151,6 +151,8 @@ resource "aws_instance" "example" {
   instance_type = var.environment == "prod" ? "t2.large" : "t2.micro"
 }
 
+## Rule: Every variable used in .tfvars must be declared in variables.tf file
+
 ## Commands Used 
 terraform init                             -  Initialize, download providers
 terraform plan                             -  Preview changes
