@@ -12,7 +12,8 @@ what happpens during terraform plan/apply .tf files will be compared with .tfsta
 .tfstate files will contain sensitive data and need to store it in a remote backend like S3 because of advantages shared access for the team, state locking with S3, Versioning and Encrypted storage.
 
 ### Meta Arguments:
-Count: Create multiple resources with numeric indexing
+
+count: Create multiple resources with numeric indexing
 eg : if we have list of strings say two s3 bucket names and if we say count = length(list_of_strings) in s3 bucket configuration we can access using count.index 
 
 for_each: Create multiple resources with maps/sets
@@ -27,10 +28,13 @@ for implicit dependency we refer it with resource parameter say if we have vpc a
 Life Cycle Rules: it actually controls how the resource is being created or updated or deleted it improves infrsstrructure management
 
 Create_before_destroy: when we want to replace a resource without downtime we can use this parameter it creates new resource first and then deletes old resource
+
 use cases: 
 changing instance type of ec2 instance
 resouces referenced by other resources
+
 eg:
+
 resource "aws_instance" "example" {
   ami           = "ami-0c55b159cbfafe1f0"
   instance_type = "t2.micro"
@@ -43,8 +47,11 @@ benefit: no downtime, enables blue-green deployment
 when  not to use: when resource has dependencies that prevent simultaneous existence, cost considerations
 
 prevent_destroy: prevents accidental deletion of critical resources
+
 use cases: production databases, critical infrastructure components
+
 eg:
+
 resource "aws_db_instance" "example" {
     allocated_storage = 20
     engine  = "mysql"
@@ -54,15 +61,18 @@ resource "aws_db_instance" "example" {
         prevent_destroy = true
     }
 }
+
 benefit: safeguards against accidental deletions, prevents data loss
+
 when not to use: when frequent resource replacements are necessary
 
 ignore_changes: ignores specific attribute changes during updates
+
 use cases: auto-scaling group size, dynamically assigned IP addresses
+
 eg:
-resource "aws_autoscaling_group" "app_servers" {
-  # ... other configuration ...
-  
+
+resource "aws_autoscaling_group" "app_servers" { 
   desired_capacity = 2
 
   lifecycle {
@@ -73,11 +83,17 @@ resource "aws_autoscaling_group" "app_servers" {
   }
 }
 
+
 benefit: prevents unnecessary resource updates, maintains stability for certain attributes
+
 when not to use: when all changes need to be tracked and managed
+
 replace_triggered_by: forces resource replacement when specified dependencies change
+
 use cases: resources dependent on external configurations, resources with specific version dependencies
+
 eg:
+
 resource "aws_instance" "example" {
   ami           = "ami-0c55b159cbfafe1f0"
   instance_type = "t2.micro"
@@ -88,11 +104,17 @@ resource "aws_instance" "example" {
     ]
   }
 }
+
 benefit: ensures resource consistency with dependencies, automates replacements based on changes
+
 when not to use: when resource stability is preferred over automatic replacements
+
 precondition: adds conditional checks before resource actions
+
 use cases: enforcing compliance rules, validating configurations
+
 eg:
+
 resource "aws_s3_bucket" "example" {    
   bucket = "my-unique-bucket-name"
 
@@ -103,11 +125,17 @@ resource "aws_s3_bucket" "example" {
     }
   }
 }
+
 benefit: enforces rules before resource actions, prevents invalid configurations
+
 when not to use: when no preconditions are necessary for resource management
+
 postcondition: adds conditional checks after resource actions
+
 use cases: validating resource states, ensuring compliance after creation
+
 eg:
+
 resource "aws_instance" "example" { 
     ami           = "ami-0c55b159cbfafe1f0"
     instance_type = "t2.micro"
@@ -119,8 +147,11 @@ resource "aws_instance" "example" {
         }
     }
     }
+
 benefit: ensures resource compliance after actions, validates final states
+
 when not to use: when postconditions are not required for resource validation
+
 
 common use cases for lifecycle rules:
 1. Zero-downtime deployments: Using create_before_destroy for resources that require high availability.
@@ -130,7 +161,8 @@ common use cases for lifecycle rules:
 5. Enforcing configuration rules: Using precondition and postcondition for validating resource states.
 
 
-1. Conditional Expressions
+### Conditional Expressions
+
 What it does:
 Evaluates a condition and returns one of two values based on whether the condition is true or false.
 
