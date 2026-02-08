@@ -1,6 +1,12 @@
 
 # Terraform Learnings
 
+### providers
+
+A provider is a terraform plugin that kows how to talk to a specific cloud platform(AWS,Azure,GCP, etc) it holds the configuration-like which region to deploy and which credentials to use. 
+
+Normally we just need one provider. but if we want to create resources in different regions we need multiple providers for the same cloud. we can do this by using extra provider block with an alias, which is just a nickname. then you tell each resource which provider to use. 
+
 ### State Management 
 when ran terraform plan / apply terraform creates a .tfstate and .tfstate.backup and some other files 
 
@@ -43,6 +49,7 @@ resource "aws_instance" "example" {
     create_before_destroy = true
   }
 }
+
 benefit: no downtime, enables blue-green deployment
 when  not to use: when resource has dependencies that prevent simultaneous existence, cost considerations
 
