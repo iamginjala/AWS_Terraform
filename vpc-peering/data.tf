@@ -7,7 +7,14 @@ data "aws_availability_zones" "requester" {
   state    = "available"
   
 }
+
+data "aws_availability_zones" "transistive" {
+  state    = "available" 
+  provider = aws.C
+}
+
 data "aws_ami" "accepter_ami" {
+  provider = aws.peer
   most_recent = true
   owners      = ["099720109477"] # Canonical (Ubuntu)
 
@@ -27,7 +34,26 @@ data "aws_ami" "accepter_ami" {
   }
 }
 data "aws_ami" "requester_ami" {
-  provider    = aws.primary
+  most_recent = true
+  owners      = ["099720109477"] # Canonical (Ubuntu)
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+}
+data "aws_ami" "transistive_ami" {
+  provider = aws.C
   most_recent = true
   owners      = ["099720109477"] # Canonical (Ubuntu)
 
