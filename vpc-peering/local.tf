@@ -1,0 +1,32 @@
+locals {
+  # User data template for Primary instance
+  primary_user_data = <<-EOF
+    #!/bin/bash
+    apt-get update -y
+    apt-get install -y apache2
+    systemctl start apache2
+    systemctl enable apache2
+    echo "<h1>Primary VPC Instance - us-east-2 </h1>" > /var/www/html/index.html
+    echo "<p>Private IP: $(hostname -I)</p>" >> /var/www/html/index.html
+  EOF
+
+  # User data template for Secondary instance
+  secondary_user_data = <<-EOF
+    #!/bin/bash
+    apt-get update -y
+    apt-get install -y apache2
+    systemctl start apache2
+    systemctl enable apache2
+    echo "<h1>Secondary VPC Instance - us-west-2</h1>" > /var/www/html/index.html
+    echo "<p>Private IP: $(hostname -I)</p>" >> /var/www/html/index.html
+  EOF
+  tertiary_user_data = <<-EOF
+    #!/bin/bash
+    apt-get update -y
+    apt-get install -y apache2
+    systemctl start apache2
+    systemctl enable apache2
+    echo "<h1>Secondary VPC Instance - us-east-1</h1>" > /var/www/html/index.html
+    echo "<p>Private IP: $(hostname -I)</p>" >> /var/www/html/index.html
+  EOF
+}
