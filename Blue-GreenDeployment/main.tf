@@ -19,7 +19,7 @@ resource "aws_s3_object" "green_object" {
   
 }
 resource "aws_iam_role" "beanstalk_service" {
-    name = "serice_role"
+    name = "service_role"
     assume_role_policy = jsonencode(
         {
           Version = "2012-10-17"
