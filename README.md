@@ -24,11 +24,11 @@ This repository contains Terraform configurations for learning and practicing AW
 - [ ] Lambda (Functions, API Gateway)
 
 ### Advanced Topics
-- [ ] Modules
+- [ ] Modules( public modules and custom modules)
 - [ ] Remote state with S3 backend
 - [ ] Workspaces
 - [ ] Terraform Cloud
-- [ ] LifeCycle Rulea
+- [ ] LifeCycle Rules
 
 ## Project Structure
 
